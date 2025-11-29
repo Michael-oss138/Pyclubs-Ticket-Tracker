@@ -16,3 +16,7 @@ def select_event(request, event_id):
     )
         
     return redirect("my_events")
+
+def my_events(request):
+    selections = TicketSelection.objects.filter(user=request.user)
+    return render(request, "tickets/my_events.html", {"selections": selections})
