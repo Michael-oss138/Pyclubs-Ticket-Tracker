@@ -10,7 +10,7 @@ class Semester(models.Model):
     def __str__(self):
         return self.name
     
-class Events(models.Model):
+class Event(models.Model):
     semester = models.ForeignKey(Semester, on_delete=models.CASCADE)
     title = models.CharField(max_length=200)
     description = models.TextField(blank=True)
