@@ -1,4 +1,5 @@
 from django.db import models
+from django.utils import timezone
 
 # Create your models here.
 class Semester(models.Model):
@@ -18,4 +19,7 @@ class Events(models.Model):
 
     def __str__(self):
         return self.title
-    
+
+def get_current_semester():
+    today = timezone.now().date()
+    return Semester.objects.filter(start_date__lte=today, end_date__gte=today).first()
