@@ -1,0 +1,11 @@
+<h2>My Selected Events</h2>
+
+{% for item in selections %}
+    <div>
+        <h3>{{ item.event.title }}</h3>
+        <p>{{ item.event.date }}</p>
+    </div>
+<hr>
+{% empty %}
+<p>You haven't selected any events yet.</p>
+{% endfor %}
