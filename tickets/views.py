@@ -11,7 +11,7 @@ def select_event(request, event_id):
 
 
     TicketSelection.objects.get_or_create(
-        user = request.user
+        user = request.user,
         event=event
     )
         

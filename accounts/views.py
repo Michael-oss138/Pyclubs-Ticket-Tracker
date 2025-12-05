@@ -10,7 +10,7 @@ def register(request):
         password=request.POST.get('password')
         confirm_password=request.POST.get('confirm_password')
 
-        if password !-= confirm_password:
+        if password != confirm_password:
             messages.error(request, "Passwords do not match")
             return redirect("register")
 
@@ -20,7 +20,7 @@ def register(request):
 
         user = User.objects.create_user(username=username, password=password)
         user.save()
-        messages.success(equest, "Account created successfully")
+        messages.success(request, "Account created successfully")
         return redirect("login")
     return render(request, "register.html")
 
