@@ -1,6 +1,6 @@
 from django.shortcuts import render
 from .models import Event
-from .models import get_current_semester
+from .models import get_current
 
 # Create your views here.
 
