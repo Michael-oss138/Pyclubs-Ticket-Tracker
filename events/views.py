@@ -7,6 +7,6 @@ from .models import get_current_semester
 def event_list(request):
     semester = get_current_semester()
     if not semester:
-        return render (request, "event/no_semester.html")
+        return render (request, "no_semester.html")
     events = Event.objects.filter(semester=semester)
-    return render(request, "events/event_list.html", {"events": events})
+    return render(request, "event_list.html", {"events": events})

@@ -6,23 +6,31 @@ from django.contrib import messages
 # Create your views here.
 def register(request):
     if request.method == 'POST':
-        username=request.POST.get('username')
-        password=request.POST.get('password')
-        confirm_password=request.POST.get('confirm_password')
+        form = RegisterForm(request.POST)
+        if form.is_valid():
+            username=form.cleaned_data['username']
+            email=form.cleaned_data['email']
+            fullname=form.cleaned_data['fullname']
+            password=form.cleaned_data['password']
 
-        if password != confirm_password:
-            messages.error(request, "Passwords do not match")
-            return redirect("register")
+            user = User.objects.create_user(
+                username=username,
+                email=email,
+                password=password
+            )
 
-        if User.objects.filter(username=username).exists():
-            messages.error(request, "Username already exosts")
-            return redirect("register")
+            user.first_name = fullname
+            user.save()
 
-        user = User.objects.create_user(username=username, password=password)
-        user.save()
-        messages.success(request, "Account created successfully")
-        return redirect("login")
-    return render(request, "register.html")
+            messages.success(request, "Account has been created successfully")
+            return redirect("login")
+        
+        else:
+            messages.error(request, "Please correct the errors below")
+
+    else:
+        form = RegisterForm()
+    return render(request, "register.html", {"form":form})
 
 def login_view(request):
     if request.method == 'POST':
