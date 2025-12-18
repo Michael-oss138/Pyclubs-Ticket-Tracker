@@ -1,7 +1,7 @@
 from django.db import models
 from django.utils import timezone
 
-# Create your models here.
+
 class Semester(models.Model):
     name = models.CharField(max_length=100)
     start_date = models.DateField()
@@ -10,12 +10,16 @@ class Semester(models.Model):
 
     def __str__(self):
         return self.name
-    
 
-@classmethod
-def get_current(cls):
-    today = timezone.now().date()
-    return cls.objects.filter(start_date__lte=today, end_date__gte=today, is_active=True).first()
+    @classmethod
+    def get_current(cls):
+        today = timezone.now().date()
+        return cls.objects.filter(
+            start_date__lte=today,
+            end_date__gte=today,
+            is_active=True
+        ).first()
+
 
 class Event(models.Model):
     semester = models.ForeignKey(Semester, on_delete=models.CASCADE)
